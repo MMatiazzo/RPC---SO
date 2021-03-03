@@ -9,16 +9,15 @@ int insert (CLIENT *clnt, char *nome, char *telefone, char *endereco)
    params pars;
    int *result;
 
-   /* junta os par�metros em um struct */
+   /* junta os parametros em um struct */
    pars.nome = nome;
    pars.telefone = telefone;
    pars.endereco = endereco;
-   /* chama a fun��o remota */
-   result = insert_1 (&pars,clnt);
-   if (result == NULL)
+   /* chama a funcao remota */
+   while ((result = insert_1 (&pars,clnt)) == NULL)
    {
 	 printf ("Problemas ao chamar a função remota insert\n");
-	 exit (1);
+    printf ("Tentando novamente...\n");
    }
 
    if(*result == 1)
@@ -39,11 +38,10 @@ char *search (CLIENT *clnt, char *nome, char *telefone, char *endereco)
    pars.nome = nome;
 
    /* chama a funcao remota */
-   result = search_1 (&pars,clnt);
-   if (result == NULL)
+   while((result = search_1 (&pars,clnt)) == NULL)
    {
 	  printf ("Problemas ao chamar a funcao remota search\n");
-	  exit (1);
+     printf ("Tentando novamente...\n");
    }
    if( *result[0] == '\0' ) {
 	   printf("Não encontrado.\n");
@@ -60,7 +58,7 @@ int update (CLIENT *clnt, char *nome, char *telefone, char *endereco, char* aux)
    params pars;
    int *result;
 
-   /* junta os par�metros em um struct */
+   /* junta os parametros em um struct */
    pars.nome = nome;
    pars.telefone = telefone;
    pars.endereco = endereco;
@@ -68,10 +66,10 @@ int update (CLIENT *clnt, char *nome, char *telefone, char *endereco, char* aux)
 	
    /* chama a fun��o remota */
    result = update_1 (&pars,clnt);
-   if (result == NULL)
+   while ((result = update_1 (&pars,clnt)) == NULL)
    {
 	 printf ("Problemas ao chamar a função remota update\n");
-	 exit (1);
+    printf ("Tentando novamente...\n");
    }
    if (*result == 1)
       printf("Alterado com sucesso\n");
@@ -87,15 +85,15 @@ int delete (CLIENT *clnt, char *nome, char *telefone, char *endereco)
    params pars;
    int *result;
 
-   /* junta os par�metros em um struct */
+   /* junta os parametros em um struct */
    pars.nome = nome;
 
-   /* chama a fun��o remota */
-   result = delete_1 (&pars,clnt);
-   if (result == NULL)
+   /* chama a funcao remota */
+   
+   while ((result = delete_1 (&pars,clnt)) == NULL)
    {
 	 printf ("Problemas ao chamar a função remota delete\n");
-	 exit (1);
+    printf ("Tentando novamente...\n");
    }
 
    if(*result == 1)
@@ -136,12 +134,13 @@ int main( int argc, char *argv[])
 
    while(1){
 
-	   printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
-	   printf("1 - Insere                                  |\n");
-	   printf("2 - Consulta                                |\n");
-	   printf("3 - Altera                                  |\n");
-	   printf("4 - Remove                                  |\n");
-	   printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	   printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	   printf("| 1 - Insere                                  |\n");
+	   printf("| 2 - Consulta                                |\n");
+	   printf("| 3 - Altera                                  |\n");
+	   printf("| 4 - Remove                                  |\n");
+      printf("| 5 - Sair                                    |\n");
+	   printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
       printf("-> ");
       int menu_option = 0;
       scanf(" %d", &menu_option);
@@ -176,13 +175,14 @@ int main( int argc, char *argv[])
             scanf(" %[^\n]", nome);
             delete(clnt, nome, NULL, NULL);
             break;
+         case 5:
+            return 0;
+            break;
          default:
             printf("Opção invalida\n");
             break;
       }
 
    }
-
-
    return (0);
 } 
