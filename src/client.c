@@ -65,12 +65,12 @@ int update (CLIENT *clnt, char *nome, char *telefone, char *endereco, char* aux)
    pars.aux = aux;
 	
    /* chama a fun��o remota */
-   result = update_1 (&pars,clnt);
    while ((result = update_1 (&pars,clnt)) == NULL)
    {
 	 printf ("Problemas ao chamar a função remota update\n");
     printf ("Tentando novamente...\n");
    }
+
    if (*result == 1)
       printf("Alterado com sucesso\n");
    else 
@@ -184,9 +184,7 @@ int main( int argc, char *argv[])
       }
 
    }
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c14731e0a7d885fa486c391713054c81597222f
    return (0);
+
 } 

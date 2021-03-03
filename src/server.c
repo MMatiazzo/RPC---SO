@@ -58,6 +58,7 @@ char ** search_1_svc (params *argp, struct svc_req *rqstp)
 
 int * update_1_svc (params *argp, struct svc_req *rqstp){
 	static int result = 0;
+	result = 0;
 	FILE * fp = fopen("agenda.bin", "r+b");
 	char buf[30];
 
@@ -68,19 +69,25 @@ int * update_1_svc (params *argp, struct svc_req *rqstp){
 			fwrite(argp->telefone, 30, 1, fp);
 			fwrite(argp->endereco, 30, 1, fp);
 			result = 1;
+			printf("Alterado com sucesso: %s\n", argp->aux);
 			break;
 		}
 		fseek(fp, 60, SEEK_CUR);
 	}
 
 	fclose(fp);
-	printf("Alterado com sucesso: %s\n\n", argc->aux);
+	if(result)
+		printf("Alterado com sucesso: %s\n", argp->aux);
+	else
+		printf("Não encontrado: %s\n", argp->aux);
+
 	return (&result);
 }
 
 
 int * delete_1_svc (params *argp, struct svc_req *rqstp){
 	static int result = 0;
+	result = 0;
 	FILE * fp = fopen("agenda.bin", "r+b");
 	char buf[30];
 
@@ -98,6 +105,10 @@ int * delete_1_svc (params *argp, struct svc_req *rqstp){
 	}
 	
 	fclose(fp);
-	printf("Deletado com sucesso: %s\n\n", argc->aux);
+	if(result)
+		printf("Deletado com sucesso: %s\n\n", argp->nome);
+	else
+		printf("Não encontrado: %s\n\n", argp->nome);
+		
 	return &result;
 }
