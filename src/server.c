@@ -11,32 +11,6 @@ int * insert_1_svc (params *argp, struct svc_req *rqstp)
 	static int result;
 	FILE *fp = fopen("agenda.bin", "ab");
 
-	// i = strlen(argp->nome);
-	// j = strlen(argp->endereco);
-	// k = strlen(argp->telefone);
-
-	// while(1){
-
-		
-	// 	if(i < 30){
-	// 		argp->nome[i] = '\0';
-	// 		i++;
-	// 	}
-	// 	if(j < 30){
-	// 		argp->endereco[j] = '\0';
-	// 		j++;
-	// 	}
-	// 	if(k < 30){
-	// 		argp->telefone[k] = '\0';
-	// 		k++;
-	// 	}
-
-	// 	if( i+j+k >= 90){
-	// 		break;
-	// 	}
-		
-	// } 
-
 	fwrite(argp->nome, 30, 1, fp);
 	fwrite(argp->telefone, 30, 1, fp);
 	result = !!fwrite(argp->endereco, 30, 1, fp);
