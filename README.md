@@ -4,9 +4,9 @@ Método de uso:
 
 Na pasta src:
 
-Tode o comando: make
+Rode o comando: make
 
-Com isso ele retornará tudo que deve ser compilado
+Com isso ele compila
 
 rpcgen  agenda.x
 cc -g    -c -o client.o client.c
@@ -49,8 +49,6 @@ Usuario castrado:
  -exemplo
  -999
  -999
- 
-Caso o client não receba confirmação o server envia novamente o resultado até receber a confirmação que chegou.
 
 [Exemplo Consulta]:
 
@@ -132,4 +130,4 @@ Não encontrado!
 Server side:
 Não encontrado: nao_existe
 
-
+Em qualquer uma das consultas caso o client não receba confirmação o server envia novamente o resultado até receber a confirmação que chegou.
