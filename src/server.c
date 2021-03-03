@@ -74,7 +74,7 @@ int * update_1_svc (params *argp, struct svc_req *rqstp){
 	}
 
 	fclose(fp);
-
+	printf("Alterado com sucesso: %s\n\n", argc->aux);
 	return (&result);
 }
 
@@ -98,5 +98,6 @@ int * delete_1_svc (params *argp, struct svc_req *rqstp){
 	}
 	
 	fclose(fp);
+	printf("Deletado com sucesso: %s\n\n", argc->aux);
 	return &result;
 }
