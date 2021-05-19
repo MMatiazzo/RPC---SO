@@ -1,4 +1,4 @@
-Trabalho de SO RPC
+Trabalho de SO RPC Agenda Eletrônica
 
 Método de uso:
 
